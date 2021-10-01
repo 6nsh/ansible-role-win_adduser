@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: win_adduser
   author: Artem Kasianchuk
-  description: Configure and manage users on Windows
+  description: Configure and manage users on Windows OS
   license: license (GPL-2.0-or-later, MIT, etc)
   min_ansible_version: 2.9
   platforms:

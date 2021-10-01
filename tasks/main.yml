@@ -1,2 +1,11 @@
 ---
-# tasks file for win_adduser
+- name: Create local users
+  win_user:
+    name: '{{ item.name }}'
+    password: '{{ item.password }}'
+    groups: '{{ item.groups }}'
+    update_password: on_create
+    user_cannot_change_password: yes
+    password_never_expires: yes
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ win_adduser }}"
