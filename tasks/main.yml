@@ -1,8 +1,38 @@
 ---
+- name: Create admin users
+  win_user:
+    name: '{{ item.name }}'
+    password: '{{ item.password }}'
+    description: "LeadLineIT Administrators"
+    groups: '{{ item.groups }}'
+    update_password: on_create
+    user_cannot_change_password: yes
+    password_never_expires: yes
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ win_adduser_adm }}"
+
+- name: Create local group to contain developer users
+  win_group:
+    name: LeadLineIT Developers
+    description: Group for LeadLineIT Developers
+
+- name: Create developer users
+  win_user:
+    name: '{{ item.name }}'
+    password: '{{ item.password }}'
+    description: "LeadLineIT Developers"
+    groups: '{{ item.groups }}'
+    update_password: on_create
+    user_cannot_change_password: yes
+    password_never_expires: yes
+    state: "{{ item.state | default('present') }}"
+  loop: "{{ win_adduser_dev }}"
+
 - name: Create local users
   win_user:
     name: '{{ item.name }}'
     password: '{{ item.password }}'
+    description: "Mere Mortals"
     groups: '{{ item.groups }}'
     update_password: on_create
     user_cannot_change_password: yes
